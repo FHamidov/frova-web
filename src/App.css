@@ -36,7 +36,7 @@
   padding: 24px;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
   height: calc(100vh - 32px);
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .icon-home, .icon-gym, .icon-sleep, .icon-archive, .icon-olympiad {
@@ -105,4 +105,293 @@
 
 .MuiIconButton-root:hover {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.contribution-graph {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.contribution-week {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contribution-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.contribution-day:hover {
+  transform: scale(1.2);
+}
+
+.contribution-day.level-0 {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.contribution-day.level-1 {
+  background: rgba(56, 189, 248, 0.3);
+}
+
+.contribution-day.level-2 {
+  background: rgba(56, 189, 248, 0.5);
+}
+
+.contribution-day.level-3 {
+  background: rgba(56, 189, 248, 0.7);
+}
+
+.contribution-day.level-4 {
+  background: rgba(56, 189, 248, 0.9);
+}
+
+.stats-container {
+  margin-bottom: 24px;
+}
+
+.graph-section {
+  margin-top: 24px;
+}
+
+.stat-card {
+  padding: 24px;
+  height: 100%;
+  border-radius: 16px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card:hover::before {
+  opacity: 0.2;
+}
+
+.stat-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-text {
+  flex: 1;
+}
+
+.stat-chart {
+  margin-right: -8px;
+}
+
+.progress-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-label {
+  position: absolute;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover .progress-ring {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.stat-card:hover .progress-label {
+  transform: scale(1.1);
+}
+
+.stat-title {
+  font-size: 1rem !important;
+  opacity: 0.9;
+  margin-bottom: 8px !important;
+  font-weight: 500 !important;
+  transition: transform 0.3s ease;
+}
+
+.stat-value {
+  font-size: 2rem !important;
+  font-weight: bold !important;
+  margin-bottom: 4px !important;
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0.8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: transform 0.3s ease;
+}
+
+.stat-subtitle {
+  opacity: 0.7;
+  font-size: 0.875rem !important;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card:hover .stat-title,
+.stat-card:hover .stat-value,
+.stat-card:hover .stat-subtitle {
+  transform: translateX(4px);
+}
+
+.graph-container {
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.6) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.graph-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.graph-title {
+  color: white;
+  opacity: 0.9;
+}
+
+.streak-stats {
+  display: flex;
+  gap: 32px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.streak-stats:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.streak-item {
+  text-align: center;
+  min-width: 120px;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.streak-item:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.streak-icon {
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.streak-value {
+  font-size: 2.5rem !important;
+  font-weight: bold !important;
+  margin: 8px 0 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.streak-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem !important;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.streak-item.current .streak-value {
+  background: linear-gradient(to right, #38BDF8, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.streak-item.longest .streak-value {
+  background: linear-gradient(to right, #4ADE80, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.streak-item.total .streak-value {
+  background: linear-gradient(to right, #F472B6, #38BDF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .streak-stats {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .streak-item {
+    width: 100%;
+    min-width: auto;
+    padding: 12px;
+  }
+  
+  .streak-value {
+    font-size: 2rem !important;
+  }
 }
