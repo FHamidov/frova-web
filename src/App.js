@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import ComputerIcon from '@mui/icons-material/Computer';
 import { motion } from 'framer-motion';
 
 const darkTheme = createTheme({
@@ -24,22 +25,12 @@ const darkTheme = createTheme({
       main: '#4ADE80',
     },
   },
-  components: {
-    MuiIconButton: {
-      styleOverrides: {
-        root: {
-          background: 'linear-gradient(45deg, #38BDF8 30%, #818CF8 90%)',
-          borderRadius: '12px',
-          padding: '12px',
-          color: '#fff',
-          '&:hover': {
-            background: 'linear-gradient(45deg, #818CF8 30%, #38BDF8 90%)',
-          },
-        },
-      },
-    },
-  },
 });
+
+const buttonVariants = {
+  hover: { scale: 1.1 },
+  tap: { scale: 0.95 },
+};
 
 const MotionIconButton = motion(IconButton);
 
@@ -48,50 +39,70 @@ function App() {
     <ThemeProvider theme={darkTheme}>
       <Box className="App">
         <Paper 
-          elevation={8}
+          elevation={4}
           component={motion.div}
-          initial={{ x: -100 }}
+          initial={{ x: -50 }}
           animate={{ x: 0 }}
-          transition={{ type: "spring", stiffness: 100 }}
+          transition={{ type: "tween", duration: 0.3 }}
           className="sidebar"
         >
           <Tooltip title="Əsas Səhifə" placement="right" arrow>
             <MotionIconButton
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              transition={{ type: "tween", duration: 0.15 }}
               className="icon-home"
             >
-              <HomeIcon />
+              <HomeIcon sx={{ fontSize: 32 }} />
             </MotionIconButton>
           </Tooltip>
 
           <Tooltip title="GYM" placement="right" arrow>
             <MotionIconButton
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              transition={{ type: "tween", duration: 0.15 }}
               className="icon-gym"
             >
-              <FitnessCenterIcon />
+              <FitnessCenterIcon sx={{ fontSize: 32 }} />
+            </MotionIconButton>
+          </Tooltip>
+
+          <Tooltip title="Olimpiada" placement="right" arrow>
+            <MotionIconButton
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              transition={{ type: "tween", duration: 0.15 }}
+              className="icon-olympiad"
+            >
+              <ComputerIcon sx={{ fontSize: 32 }} />
             </MotionIconButton>
           </Tooltip>
 
           <Tooltip title="Yuxu" placement="right" arrow>
             <MotionIconButton
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              transition={{ type: "tween", duration: 0.15 }}
               className="icon-sleep"
             >
-              <BedtimeIcon />
+              <BedtimeIcon sx={{ fontSize: 32 }} />
             </MotionIconButton>
           </Tooltip>
 
           <Tooltip title="Arxiv" placement="right" arrow>
             <MotionIconButton
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              transition={{ type: "tween", duration: 0.15 }}
               className="icon-archive"
             >
-              <ArchiveIcon />
+              <ArchiveIcon sx={{ fontSize: 32 }} />
             </MotionIconButton>
           </Tooltip>
         </Paper>
@@ -100,7 +111,7 @@ function App() {
           component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.3 }}
           className="main-content"
         >
           {/* Main content will be here */}
