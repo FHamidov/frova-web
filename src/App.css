@@ -224,33 +224,56 @@
 .streak-stats {
   flex: 1;
   display: flex;
-  gap: 24px;
-  padding: 12px 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+  gap: 32px;
+  padding: 32px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(129, 140, 248, 0.08));
+  border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  min-width: 320px;
-  max-width: 480px;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 400px;
+  max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.streak-stats::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, 
+    rgba(255, 255, 255, 0.1), 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .streak-stats:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 15px 20px rgba(0, 0, 0, 0.2);
+}
+
+.streak-stats:hover::before {
+  opacity: 1;
 }
 
 .streak-item {
   text-align: center;
   flex: 1;
-  padding: 16px;
-  border-radius: 12px;
+  padding: 24px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.03);
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  min-width: 180px;
 }
 
 .streak-item::before {
@@ -260,81 +283,650 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(45deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0) 100%);
   z-index: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .streak-item:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.05);
   background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .streak-icon {
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   position: relative;
   z-index: 1;
+  transform-origin: center;
+  transition: transform 0.4s ease;
+}
+
+.streak-item:hover .streak-icon {
+  transform: scale(1.2) rotate(5deg);
 }
 
 .streak-value {
-  font-size: 2.5rem !important;
-  font-weight: bold !important;
-  margin: 8px 0 !important;
+  font-size: 3.5rem !important;
+  font-weight: 700 !important;
+  margin: 16px 0 !important;
   position: relative;
   z-index: 1;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .streak-label {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.875rem !important;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem !important;
+  font-weight: 500 !important;
   white-space: nowrap;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 6px;
   position: relative;
   z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .streak-item.current .streak-value {
   background: linear-gradient(to right, #38BDF8, #818CF8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(56, 189, 248, 0.3));
 }
 
 .streak-item.longest .streak-value {
   background: linear-gradient(to right, #4ADE80, #818CF8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(74, 222, 128, 0.3));
 }
 
 .streak-item.total .streak-value {
   background: linear-gradient(to right, #F472B6, #38BDF8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(244, 114, 182, 0.3));
 }
 
 @media (max-width: 1200px) {
   .streak-stats {
-    min-width: 280px;
+    min-width: 360px;
+    padding: 24px;
+    gap: 24px;
+  }
+  
+  .streak-item {
+    padding: 20px;
+    min-width: 140px;
+  }
+  
+  .streak-value {
+    font-size: 3rem !important;
   }
 }
 
 @media (max-width: 768px) {
   .streak-stats {
     flex-direction: column;
-    gap: 16px;
-    padding: 16px;
+    gap: 20px;
+    padding: 20px;
     min-width: 100%;
     max-width: 100%;
   }
   
   .streak-item {
     width: 100%;
-    padding: 12px;
+    padding: 20px;
+    min-width: unset;
   }
   
   .streak-value {
-    font-size: 2rem !important;
+    font-size: 2.5rem !important;
+  }
+}
+
+.daily-goals-card,
+.notifications-card {
+  padding: 24px;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(129, 140, 248, 0.08));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-goals-card::before,
+.notifications-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, 
+    rgba(255, 255, 255, 0.1), 
+    transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.daily-goals-card:hover,
+.notifications-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.daily-goals-card:hover::before,
+.notifications-card:hover::before {
+  opacity: 1;
+}
+
+.goal-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.goal-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.goal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.goal-title .MuiSvgIcon-root {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.goal-item:hover .goal-title .MuiSvgIcon-root {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.goal-item .MuiLinearProgress-root {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 12px 0;
+}
+
+.goal-item .MuiLinearProgress-bar {
+  background: linear-gradient(90deg, #38BDF8, #818CF8);
+  border-radius: 4px;
+}
+
+.goal-item .MuiButton-root {
+  width: 100%;
+  border-radius: 8px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.goal-item .MuiButton-root:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.notifications-card .MuiList-root {
+  padding: 0;
+}
+
+.notifications-card .MuiListItem-root {
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.notifications-card .MuiListItem-root:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+
+.notifications-card .MuiListItemIcon-root {
+  min-width: 44px;
+}
+
+.notifications-card .MuiListItemIcon-root .MuiSvgIcon-root {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.notifications-card .MuiListItem-root:hover .MuiListItemIcon-root .MuiSvgIcon-root {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.notifications-card .MuiListItemText-primary {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.notifications-card .MuiListItemText-secondary {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+}
+
+/* Glassmorphism effect for both cards */
+.daily-goals-card,
+.notifications-card {
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Hover animations for text */
+.goal-title Typography,
+.notifications-card .MuiListItemText-primary {
+  transition: color 0.3s ease;
+}
+
+.goal-item:hover .goal-title Typography,
+.notifications-card .MuiListItem-root:hover .MuiListItemText-primary {
+  color: #38BDF8;
+}
+
+/* Add subtle pulse animation to incomplete goals */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.goal-item:not(.completed) {
+  animation: pulse 2s infinite;
+}
+
+/* Add completion animation */
+@keyframes complete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.goal-item.completed .MuiSvgIcon-root {
+  animation: complete 0.5s ease-out;
+  color: #4ADE80;
+}
+
+/* Tasks Container Styles */
+.tasks-container {
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.08), rgba(129, 140, 248, 0.08));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px !important;
+  min-height: 400px;
+}
+
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.tasks-title {
+  font-weight: 600 !important;
+  background: linear-gradient(to right, #38BDF8, #818CF8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.add-task-button {
+  background: linear-gradient(135deg, #38BDF8, #818CF8) !important;
+  border-radius: 8px !important;
+  text-transform: none !important;
+  padding: 6px 16px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-task-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(56, 189, 248, 0.3),
+    0 0 0 2px rgba(56, 189, 248, 0.1);
+}
+
+.add-task-button:active {
+  transform: translateY(0);
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px !important;
+  padding: 16px;
+  margin-bottom: 8px;
+  user-select: none;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out !important;
+  will-change: transform, box-shadow;
+  cursor: grab;
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.task-item.dragging {
+  background: rgba(56, 189, 248, 0.1) !important;
+  border-color: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  transform: scale(1.05) !important;
+  cursor: grabbing !important;
+  z-index: 999;
+  pointer-events: auto !important;
+}
+
+.task-drag-handle {
+  color: rgba(255, 255, 255, 0.3);
+  margin-right: 12px;
+  cursor: grab;
+  transition: color 0.3s ease;
+}
+
+.task-drag-handle:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.task-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-checkbox {
+  color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.task-checkbox:hover {
+  color: #4ADE80;
+  transform: scale(1.1);
+}
+
+.task-title {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.task-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.task-priority,
+.task-due-date,
+.task-category {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s ease !important;
+  font-size: 0.75rem !important;
+}
+
+.task-due-date {
+  color: #818CF8 !important;
+}
+
+.task-category {
+  color: #38BDF8 !important;
+}
+
+.task-priority:hover,
+.task-due-date:hover,
+.task-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Add smooth animation for dragging */
+@keyframes taskDrag {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+.task-item.dragging {
+  animation: taskDrag 0.2s forwards;
+}
+
+.columns-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+  height: calc(100vh - 500px);
+  min-height: 400px;
+}
+
+.column {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px !important;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.column-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.column.done-column {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), rgba(56, 189, 248, 0.05)) !important;
+}
+
+.column:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.task-count {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tasks-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 200px;
+  transition: background-color 0.2s ease;
+}
+
+.tasks-list.dragging-over {
+  background: rgba(56, 189, 248, 0.05);
+  border-radius: 12px;
+  padding: 12px 8px;
+}
+
+.task-item {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px !important;
+  padding: 16px;
+  margin-bottom: 8px;
+  user-select: none;
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out !important;
+  will-change: transform, box-shadow;
+  cursor: grab;
+}
+
+.task-item:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.task-item.dragging {
+  background: rgba(56, 189, 248, 0.1) !important;
+  border-color: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  transform: scale(1.05) !important;
+  cursor: grabbing !important;
+  z-index: 999;
+  pointer-events: auto !important;
+}
+
+.task-item.done {
+  opacity: 0.7;
+  background: rgba(74, 222, 128, 0.05) !important;
+}
+
+.task-item.done .task-title {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.task-item.done .task-checkbox {
+  color: #4ADE80;
+}
+
+.task-drag-handle {
+  color: rgba(255, 255, 255, 0.3);
+  margin-right: 12px;
+  cursor: grab;
+  transition: all 0.3s ease;
+  padding-top: 2px;
+}
+
+.task-item.dragging .task-drag-handle {
+  color: rgba(56, 189, 248, 0.6);
+  cursor: grabbing;
+}
+
+.task-drag-handle:hover {
+  color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.1);
+}
+
+/* Custom scrollbar for better UX */
+.tasks-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tasks-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.tasks-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.tasks-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Smooth animations for task transitions */
+@keyframes taskEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes taskExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Improve scrolling during drag */
+.tasks-list {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+}
+
+/* Add a ghost effect when dragging */
+.task-item.dragging::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+  opacity: 0.5;
+  z-index: -1;
+  animation: ghostEffect 1s infinite alternate ease-in-out;
+}
+
+@keyframes ghostEffect {
+  from {
+    transform: translateY(4px);
+    opacity: 0.3;
+  }
+  to {
+    transform: translateY(8px);
+    opacity: 0.1;
   }
 }
