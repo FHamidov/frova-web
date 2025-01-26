@@ -38,22 +38,6 @@ const buttonVariants = {
 
 const MotionIconButton = motion(IconButton);
 
-// Dummy data for contribution graph
-const generateContributionData = () => {
-  const data = [];
-  for (let week = 0; week < 52; week++) {
-    const weekData = [];
-    for (let day = 0; day < 7; day++) {
-      weekData.push({
-        count: Math.floor(Math.random() * 5),
-        date: new Date(2024, 0, week * 7 + day + 1)
-      });
-    }
-    data.push(weekData);
-  }
-  return data;
-};
-
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -76,23 +60,6 @@ const cardVariants = {
       type: "spring",
       stiffness: 100,
       damping: 10
-    }
-  }
-};
-
-const graphVariants = {
-  hidden: { 
-    y: 20,
-    opacity: 0 
-  },
-  visible: { 
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 10,
-      delay: 0.4
     }
   }
 };
@@ -214,8 +181,6 @@ function StatCard({ title, value, subtitle, gradient, percentage }) {
 }
 
 function App() {
-  const contributionData = generateContributionData();
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Box className="App">
@@ -340,37 +305,7 @@ function App() {
               </Grid>
             </Grid>
 
-            {/* Contribution Graph below cards */}
-            <motion.div 
-              variants={graphVariants}
-              className="graph-section"
-            >
-              <Paper className="graph-container">
-                <div className="graph-header">
-                  <Typography variant="h6" className="graph-title">
-                    Aktivlik Tarixçəsi
-                  </Typography>
-                  <StreakStats />
-                </div>
-                <div className="contribution-graph">
-                  {contributionData.map((week, weekIndex) => (
-                    <div key={weekIndex} className="contribution-week">
-                      {week.map((day, dayIndex) => (
-                        <Tooltip 
-                          key={dayIndex}
-                          title={`${day.date.toLocaleDateString()} - ${day.count} tapşırıq`}
-                          arrow
-                        >
-                          <div 
-                            className={`contribution-day level-${day.count}`}
-                          />
-                        </Tooltip>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              </Paper>
-            </motion.div>
+            <StreakStats />
           </motion.div>
         </Box>
       </Box>

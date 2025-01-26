@@ -107,57 +107,8 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-.contribution-graph {
-  display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-}
-
-.contribution-week {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.contribution-day {
-  width: 12px;
-  height: 12px;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.contribution-day:hover {
-  transform: scale(1.2);
-}
-
-.contribution-day.level-0 {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.contribution-day.level-1 {
-  background: rgba(56, 189, 248, 0.3);
-}
-
-.contribution-day.level-2 {
-  background: rgba(56, 189, 248, 0.5);
-}
-
-.contribution-day.level-3 {
-  background: rgba(56, 189, 248, 0.7);
-}
-
-.contribution-day.level-4 {
-  background: rgba(56, 189, 248, 0.9);
-}
-
 .stats-container {
   margin-bottom: 24px;
-}
-
-.graph-section {
-  margin-top: 24px;
 }
 
 .stat-card {
@@ -270,34 +221,19 @@
   transform: translateX(4px);
 }
 
-.graph-container {
-  padding: 24px;
-  background: rgba(15, 23, 42, 0.6) !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.graph-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-}
-
-.graph-title {
-  color: white;
-  opacity: 0.9;
-}
-
 .streak-stats {
+  flex: 1;
   display: flex;
-  gap: 32px;
-  padding: 24px;
+  gap: 24px;
+  padding: 12px 20px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  min-width: 320px;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
 .streak-stats:hover {
@@ -308,7 +244,7 @@
 
 .streak-item {
   text-align: center;
-  min-width: 120px;
+  flex: 1;
   padding: 16px;
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.03);
@@ -378,16 +314,23 @@
   -webkit-text-fill-color: transparent;
 }
 
+@media (max-width: 1200px) {
+  .streak-stats {
+    min-width: 280px;
+  }
+}
+
 @media (max-width: 768px) {
   .streak-stats {
     flex-direction: column;
     gap: 16px;
     padding: 16px;
+    min-width: 100%;
+    max-width: 100%;
   }
   
   .streak-item {
     width: 100%;
-    min-width: auto;
     padding: 12px;
   }
   
